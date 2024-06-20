@@ -1,5 +1,6 @@
-import "~/ui/styles/globals.css";
+import "~/ui/globals.css";
 import { GeistSans } from "geist/font/sans";
+import PrelineScript from "~/ui/PrelineScript";
 
 export const metadata = {
   title: "Create T3 App",
@@ -13,8 +14,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${GeistSans.variable}`}>
+    <html lang="en" className={`${GeistSans.variable} font-mono`} data-theme="synthwave">
       <body>
+        <PrelineScript />
         {children}
       </body>
     </html>

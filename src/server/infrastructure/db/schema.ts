@@ -1,14 +1,5 @@
 import { relations, sql } from "drizzle-orm";
-import {
-  bigint,
-  index,
-  int,
-  mysqlTableCreator,
-  primaryKey,
-  text,
-  timestamp,
-  varchar,
-} from "drizzle-orm/mysql-core";
+import { bigint, index, int, mysqlTableCreator, primaryKey, text, timestamp, varchar } from "drizzle-orm/mysql-core";
 import { type AdapterAccount } from "next-auth/adapters";
 
 /**

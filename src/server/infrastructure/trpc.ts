@@ -1,30 +1,19 @@
+import "server-only";
 import { TRPCError, initTRPC } from "@trpc/server";
 import { experimental_nextAppDirCaller } from "@trpc/server/adapters/next-app-dir";
-import "server-only";
-import { z } from "zod";
-import { getServerAuthSession } from "./auth";
-"use server";
+import { getDb } from "./db";
 
-interface Meta {
-  span: string;
-}
+export const serverActionProcedure = initTRPC.create().procedure
+  .experimental_caller(experimental_nextAppDirCaller({}))
+  .use(async (opts) => opts.next({
+    ctx: {
+      user: undefined,
+      db: await getDb()
+    },
+  }));
 
-const t = initTRPC.meta<Meta>().create();
 
-const serverActionProcedure = t.procedure
-  .experimental_caller(
-    experimental_nextAppDirCaller({
-      pathExtractor: ({ meta }) => (meta as Meta).span
-    }),
-  )
-  .use(async (opts) => {
-    const user = await getServerAuthSession();
-    return opts.next({
-      ctx: { user },
-    });
-  });
-
-const protectedAction = serverActionProcedure.use((opts) => {
+export const protectedAction = serverActionProcedure.use((opts) => {
   if (!opts.ctx.user) {
     throw new TRPCError({ code: 'UNAUTHORIZED' });
   }
@@ -36,11 +25,5 @@ const protectedAction = serverActionProcedure.use((opts) => {
   });
 });
 
-export const userSaysAction = protectedAction
-  .input(z.object({
-    phrase: z.string(),
-  }))
-  .mutation(({ ctx, input }) => `${ctx.user.user.name} says ${input.phrase}`);
-
-export const iAmAliveAction = serverActionProcedure
+export const iAmAlive = serverActionProcedure
   .query(() => "i'm alive");

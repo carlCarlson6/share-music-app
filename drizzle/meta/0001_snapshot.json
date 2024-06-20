@@ -1,0 +1,50 @@
+{
+  "version": "5",
+  "dialect": "mysql",
+  "id": "afe8831e-c14a-449e-9945-48716ae297fe",
+  "prevId": "9dc6066b-f1e9-4298-b1f7-b6af8962d705",
+  "tables": {
+    "share-music-app_recomendations": {
+      "name": "share-music-app_recomendations",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "url": {
+          "name": "url",
+          "type": "varchar(500)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "datetime",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "share-music-app_recomendations_id": {
+          "name": "share-music-app_recomendations_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {}
+    }
+  },
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  }
+}

@@ -1,0 +1,1 @@
+ALTER TABLE `share-music-app_recomendations` MODIFY COLUMN `createdAt` datetime NOT NULL;
